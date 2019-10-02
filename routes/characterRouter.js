@@ -43,7 +43,7 @@ characterRouter.post('/', (req, res) => {
             res.status(400);
             res.send(err);
         } else {
-            res.send(`Saved you ${document}`);
+            res.send(`Saved ${document} to DB`);
         }
     });
 });
@@ -65,7 +65,24 @@ characterRouter.put('/:character_id', (req, res) => {
         if(err) {
             res.status(400).send(err);
         } else {
-            res.send(`Character updated!: \n${character}`);
+           character.name = req.body.name;
+           character.race = req.body.race;
+            character.class = req.body.class;
+            character.level = req.body.level;
+            character.strength = req.body.strength;
+            character.dexterity = req.body.dexterity;
+            character.constitution = req.body.constitution;
+            character.intelligence = req.body.intelligence;
+            character.wisdom = req.body.wisdom;
+            character.charisma = req.body.charisma;
+
+            character.save((err, beer) => {
+                if(err) {
+                    res.status(400).send(err);
+                } else {
+                    res.send(`Character updated!: \n${character}`);
+                }
+            });
         }
     });
 });
