@@ -48,6 +48,28 @@ characterRouter.post('/', (req, res) => {
     });
 });
 
+characterRouter.delete('/:character_id', (req, res) => {
+    Character.deleteOne({
+      _id: req.params.character_id  
+    }, (err) => {
+        if(err) {
+            res.status(400).send(err);
+        } else {
+            res.status(200).send(`Deleted character with id: ${req.body.character_id}`);
+        }
+    });
+});
+
+characterRouter.put('/:character_id', (req, res) => {
+    Character.findById(req.params.character_id, (err, character) => {
+        if(err) {
+            res.status(400).send(err);
+        } else {
+            res.send(`Character updated!: \n${character}`);
+        }
+    });
+});
+
 characterRouter.use('/', (req, res) => {
     res.send('char router is working');
 });

@@ -10,13 +10,14 @@ const port = process.env.PORT || 3000;
 //const db = mongoose.connect('mongodb://localhost:27017/characters');
 
 app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.json());
 
 app.use('/characters', characterRouter);
 
 app.use('/', (req, res) => {
     console.log('ping');
     res.send('<h2>Welcome</h2>');
-})
+});
 
 /* app.get('/', (req, res) => {
     res.send('Its an API!');
